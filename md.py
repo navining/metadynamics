@@ -17,13 +17,12 @@ def simulate():
     R = init.InitPositionCubic(Ncube, L)
     V = init.InitVelocity(N, T0, M)
     E = np.zeros(steps)
-    T = np.zeros(steps)
 
     ## metadynamics
     n_gauss = 0
     S = [] # position of the center of the Gaussian
 
-    print("steps\ttemperature\tkinetic\tpotential\tenergy\t")
+    print("steps\ttemperature\tpressure\tkinetic\tpotential\tenergy\t")
 
     for t in range(0, steps):
         # -----------------------Measuring Physical Properties----------------------------
@@ -32,7 +31,7 @@ def simulate():
         k = my_kinetic_energy(V, M)
 
         ## calculate temperature
-        T[t] = my_temperature(k, N)
+        T = my_temperature(k, N)
 
         ## calculate distance table
         drij = get_distance_table(N, R, L)
@@ -46,6 +45,9 @@ def simulate():
         ## calculate forces
         F = np.array([my_force_on(i, R, L, rc) for i in range(N)])
         A = F / M
+
+        ## calculate pressure
+        P = my_pressure(N**3,N,T,R,F)
 
         # -----------------------Anderson Thermostat----------------------
         if anderson == True:
@@ -76,7 +78,7 @@ def simulate():
         R, V = nR, nV
 
         # ------------------------Output-------------------------------------
-        print('%d\t%.3f\t%.5f\t%.5f\t%.5f\t' % (t, T[t], k, p, E[t]))
+        print('%d\t%.3f\t%.2e\t%.5f\t%.5f\t%.5f\t' % (t, T, P, k, p, E[t]))
 
     return S
 
