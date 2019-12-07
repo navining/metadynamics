@@ -3,11 +3,13 @@
 M = 48.0
 
 # number of Particles
-Ncube = 3
-N = 4* (Ncube ** 3)
+Ncube = 4
+N = Ncube**3
+#N = 4* (Ncube ** 3)
 
 # box side length
 L = 1.56 * Ncube #(density of solid argon) (lattice parameter L/Ncube = 1.56) #sigma argon = 3.4 A
+
 
 # cutoff radius
 rc = L/2
@@ -23,12 +25,12 @@ anderson = True
 eta = 0.3125
 
 # filename
-fileName = 'T_0'
+fileName = 'T' + str(Ta)
 
 # --------------MD-----------------
 
 # total steps
-steps = 5000
+steps = 2000
 
 # gap
 h = 0.032
@@ -46,4 +48,4 @@ meta_max = 100
 meta_tau = 50
 
 # cutoff radius
-meta_rc = (3**0.5)*L/(Ncube*1.9)
+meta_rc = 1.34

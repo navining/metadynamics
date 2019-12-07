@@ -14,7 +14,7 @@ from output import *
 def simulate():
     # -----------------------Initialize--------------------------------
     ## system
-    R = init.InitPositionFCC(Ncube, L)
+    R = init.InitPositionCubic(Ncube, L)
     V = init.InitVelocity(N, T0, M)
     E = np.zeros(steps)
 
@@ -89,6 +89,8 @@ def simulate():
         # ------------------------Output-------------------------------------
         if t % 50 == 0:
             output(fileName, '%d, %.3f, %.3f, %.5f, %.5f\n' % (t+1, T, P, E[t], meta_Q6))
+        if t % 100 == 0:
+            write_xyz(fileName + '_' + str(t) + '.xyz', R)
 
     return S
 
