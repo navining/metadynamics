@@ -19,6 +19,38 @@ def InitPositionCubic(Ncube, L):
                 n += 1
     return position
 
+def InitPositionFCC(Ncube, L):
+    """Places 4 * Ncube^3 atoms in a FCC box; returns position vector"""
+    N = 4 * Ncube ** 3
+    position = np.zeros((N, 3))
+    rs = L / Ncube #lattice parameter
+    roffset = L / 2 - rs / 2
+    n = 0
+    # Note: you can rewrite this using the `itertools.product()` function
+    for x in range(0, Ncube):
+        for y in range(0, Ncube):
+            for z in range(0, Ncube):
+                if n < N:
+                    position[n, 0] = rs * x - roffset
+                    position[n, 1] = rs * y - roffset
+                    position[n, 2] = rs * z - roffset
+                n += 1
+                if n < N:
+                    position[n, 0] = rs * x * 0.5 - roffset
+                    position[n, 1] = rs * y * 0.5 - roffset
+                    position[n, 2] = rs * z - roffset
+                n += 1
+                if n < N:
+                    position[n, 0] = rs * x * 0.5 - roffset
+                    position[n, 1] = rs * y - roffset
+                    position[n, 2] = rs * z * 0.5 - roffset
+                n += 1
+                if n < N:
+                    position[n, 0] = rs * x - roffset
+                    position[n, 1] = rs * y * 0.5 - roffset
+                    position[n, 2] = rs * z * 0.5 - roffset
+                n += 1
+    return position
 
 def InitVelocity(N, T0, mass=1., seed=1):
     dim = 3
@@ -31,4 +63,3 @@ def InitVelocity(N, T0, mass=1., seed=1):
     vscale = np.sqrt(dim * N * T0 / (mass * KE))  # calculate a scaling factor
     velocity *= vscale  # rescale
     return velocity
-
