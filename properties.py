@@ -132,5 +132,5 @@ def my_temperature(k,N):
     return k/(3*N/2)
 
 def my_pressure(V,N,T,R,F):
-    viral = np.mean([np.dot(R[i],F[i]) for i in range(N)])
+    viral = np.sum([np.dot(R[i],F[i]) for i in range(N)])
     return (N*T + viral/3) / V
