@@ -3,20 +3,21 @@
 M = 48.0
 
 # number of Particles
-Ncube = 4
-N = Ncube ** 3
+Ncube = 3
+N = 4* (Ncube ** 3)
 
 # box side length
-L = 14.5369647
+#L = 14.5369647
+L = 1.56 * Ncube #(density of solid argon) (lattice parameter L/Ncube = 1.56) #sigma argon = 3.4 A
 
 # cutoff radius
-rc = L/2
-
+#rc = L/2
+rc = (3**0.5)*L/(Ncube*1.9)
 # initial temperature
-T0 = 2
+T0 = 0.2
 
 # system temperature
-Ta = 1
+Ta = 0.1
 
 # Anderson
 anderson = True
