@@ -18,11 +18,12 @@ def InitPositionCubic(Ncube, L):
                     position[n, 1] = rs * y - roffset
                     position[n, 2] = rs * z - roffset
                 n += 1
+    #print(position)
     return position
 
 def InitPositionFCC(Ncube, L):
     """Places 4 * Ncube^3 atoms in a FCC box; returns position vector"""
-    N = 4 * Ncube ** 3
+    N = 4 * (Ncube ** 3)
     position = np.zeros((N, 3))
     rs = L / Ncube #lattice parameter
     roffset = L / 2 - rs / 2
@@ -37,20 +38,22 @@ def InitPositionFCC(Ncube, L):
                     position[n, 2] = rs * z - roffset
                 n += 1
                 if n < N:
-                    position[n, 0] = rs * x * 0.5 - roffset
-                    position[n, 1] = rs * y * 0.5 - roffset
+                    position[n, 0] = rs * (x + 0.5) - roffset
+                    position[n, 1] = rs * (y + 0.5) - roffset
                     position[n, 2] = rs * z - roffset
                 n += 1
                 if n < N:
-                    position[n, 0] = rs * x * 0.5 - roffset
+                    position[n, 0] = rs * (x + 0.5) - roffset
                     position[n, 1] = rs * y - roffset
-                    position[n, 2] = rs * z * 0.5 - roffset
+                    position[n, 2] = rs * (z + 0.5) - roffset
                 n += 1
                 if n < N:
                     position[n, 0] = rs * x - roffset
-                    position[n, 1] = rs * y * 0.5 - roffset
-                    position[n, 2] = rs * z * 0.5 - roffset
+                    position[n, 1] = rs * (y + 0.5) - roffset
+                    position[n, 2] = rs * (z + 0.5) - roffset
                 n += 1
+    #print("N=", N, len(position))
+    #print(position)
     return position
 
 def InitPositionRandom(Ncube, L):

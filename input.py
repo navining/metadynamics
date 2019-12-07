@@ -3,11 +3,11 @@
 M = 48.0
 
 # number of Particles
-Ncube = 4
-N = Ncube ** 3
+Ncube = 3
+N = 4* (Ncube ** 3)
 
 # box side length
-L = 14.5369647
+L = 1.56 * Ncube #(density of solid argon) (lattice parameter L/Ncube = 1.56) #sigma argon = 3.4 A
 
 # cutoff radius
 rc = L/2
@@ -46,4 +46,4 @@ meta_max = 100
 meta_tau = 50
 
 # cutoff radius
-meta_rc = 1.3469544579712476
+meta_rc = (3**0.5)*L/(Ncube*1.9)
