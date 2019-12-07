@@ -7,21 +7,23 @@ Ncube = 4
 N = Ncube ** 3
 
 # box side length
-L = 4.0
+L = 14.5369647
 
 # cutoff radius
-rc = 2.0
+rc = L/2
 
 # initial temperature
 T0 = 2
 
 # system temperature
-Ta = 0.1
+Ta = 1
 
 # Anderson
 anderson = True
 eta = 0.3125
 
+# filename
+fileName = 'test'
 
 # --------------MD-----------------
 
@@ -41,4 +43,4 @@ meta_sigma = 0.1 # width
 meta_max = 100
 
 # frequency
-meta_tau = 100
+meta_tau = 5

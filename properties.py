@@ -101,15 +101,24 @@ def my_force_on(i, pos, lbox, rc):
     return Force
 
 
-def get_distance_table(N, R, lbox):
+def get_distance_table(N, rij):
     drij = np.zeros((N, N))
     for i in range(N):
         for j in range(i + 1, N):
-            disp = my_disp_in_box(R[i] - R[j], lbox)
+            disp = rij[(i,j)]
             distance = my_distance(disp)
             drij[i][j] = distance
             drij[j][i] = distance
     return drij
+
+def get_displacement_table(N, R, lbox):
+    rij = np.zeros((N, N, 3))
+    for i in range(N):
+        for j in range(i + 1, N):
+            disp = my_disp_in_box(R[i] - R[j], lbox)
+            rij[i][j] = disp
+            rij[j][i] = disp
+    return rij
 
 def my_temperature(k,N):
     """ Calculate system temperature.
