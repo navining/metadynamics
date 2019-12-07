@@ -14,7 +14,7 @@ from output import *
 def simulate():
     # -----------------------Initialize--------------------------------
     ## system
-    R = init.InitPositionFCC(Ncube, L)
+    R = init.InitPositionCubic(Ncube, L)
     V = init.InitVelocity(N, T0, M)
     E = np.zeros(steps)
 
@@ -85,6 +85,8 @@ def simulate():
         ## calculate pressure
         P = my_pressure(L ** 3, N, T, R, nF)
 
+        ## calculate Q6 in case no bias
+        meta_Q6 = calculate_Q6(R,drij, rij)
 
         # ------------------------Output-------------------------------------
         if t % 50 == 0:
