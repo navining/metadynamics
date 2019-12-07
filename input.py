@@ -13,22 +13,22 @@ L = 14.5369647
 rc = L/2
 
 # initial temperature
-T0 = 2
+T0 = 1
 
 # system temperature
-Ta = 1
+Ta = 0
 
 # Anderson
 anderson = True
 eta = 0.3125
 
 # filename
-fileName = 'test'
+fileName = 'T_0'
 
 # --------------MD-----------------
 
 # total steps
-steps = 2000
+steps = 5000
 
 # gap
 h = 0.032
@@ -43,4 +43,7 @@ meta_sigma = 0.1 # width
 meta_max = 100
 
 # frequency
-meta_tau = 5
+meta_tau = 50
+
+# cutoff radius
+meta_rc = 1.3469544579712476

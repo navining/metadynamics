@@ -14,14 +14,14 @@ def calculate_Qlm(l, m, R, rc, drij, rij):
     for i in range(N):
         for j in range(i+1,N):
             r = drij[(i,j)]
-            if r < rc:
+            if r <= rc:
                 bonds += 1
                 rhat = rij[(i,j)] / np.linalg.norm(rij[(i,j)])
                 theta = np.arccos(rhat[2])
                 phi = np.arctan2(rhat[1], rhat[0])
                 Qlm += sph_harm(m, l, phi, theta)
-
-    Qlm = Qlm / bonds
+    if bonds!=0:
+        Qlm = Qlm / bonds
 
     return Qlm
 
@@ -49,7 +49,7 @@ def calculate_Q6(R,drij, rij):
     # Output:
     # Q6: the collective variable
 
-    Q6 = calculate_Ql(6, R, rc, drij, rij)
+    Q6 = calculate_Ql(6, R, meta_rc, drij, rij)
     return Q6
 
 def calculate_ds_dr(R,s,drij,rij):

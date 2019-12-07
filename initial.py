@@ -1,4 +1,5 @@
 import numpy as np
+import random
 # Everyone will start their gas in the same initial configuration.
 # ----------------------------------------------------------------
 def InitPositionCubic(Ncube, L):
@@ -50,6 +51,16 @@ def InitPositionFCC(Ncube, L):
                     position[n, 1] = rs * y * 0.5 - roffset
                     position[n, 2] = rs * z * 0.5 - roffset
                 n += 1
+    return position
+
+def InitPositionRandom(Ncube, L):
+    """Places Ncube^3 atoms in a cubic box; returns position vector"""
+    N = Ncube ** 3
+    position = np.zeros((N, 3))
+    for i in range(N):
+        position[i,0] = random.random()*L - 2 / L
+        position[i, 1] = random.random() * L - 2 / L
+        position[i, 2] = random.random() * L - 2 / L
     return position
 
 def InitVelocity(N, T0, mass=1., seed=1):
