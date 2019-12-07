@@ -18,7 +18,6 @@ def InitPositionCubic(Ncube, L):
                     position[n, 1] = rs * y - roffset
                     position[n, 2] = rs * z - roffset
                 n += 1
-    #print(position)
     return position
 
 def InitPositionFCC(Ncube, L):
