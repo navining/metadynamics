@@ -8,29 +8,30 @@ N = Ncube**3
 #N = 4* (Ncube ** 3)
 
 # box side length
-L = 1.56 * Ncube #(density of solid argon) (lattice parameter L/Ncube = 1.56) #sigma argon = 3.4 A
-
+#L = 1.56 * Ncube #(density of solid argon) (lattice parameter L/Ncube = 1.56) #sigma argon = 3.4 A
+L = 4
 
 # cutoff radius
 rc = L/2
 
 # initial temperature
-T0 = 1
+T0 = 2
 
 # system temperature
-Ta = 0
+Ta = 0.2
 
 # Anderson
 anderson = True
 eta = 0.3125
 
 # filename
-fileName = 'T' + str(Ta)
+#fileName = 'T' + str(Ta)
+fileName = 'T02'
 
 # --------------MD-----------------
 
 # total steps
-steps = 2000
+steps = 5000
 
 # gap
 h = 0.032

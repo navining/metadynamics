@@ -8,7 +8,7 @@ if __name__ == '__main__':
     Q6 = []
     Q6_tau = []
 
-    fileName = 'T_0'
+    fileName = 'Liquid'
 
     f = open(fileName,'r')
     try:
@@ -24,10 +24,8 @@ if __name__ == '__main__':
         Q6.append(float(line[4]))
 
     # f = open(fileName + '_Q6', 'r')
-    # try:
-    #     lines = f.readlines()
-    # finally:
-    #     f.close()
+    # lines = f.readlines()
+    # f.close()
     #
     # for i in range(1, len(lines)):
     #     line = lines[i].strip('\n').split(', ')
@@ -36,5 +34,5 @@ if __name__ == '__main__':
 
     plt.plot(t,Q6)
     plt.show()
-    plt.plot(E)
+    plt.plot(t,E)
     plt.show()

@@ -76,3 +76,23 @@ def InitVelocity(N, T0, mass=1., seed=1):
     vscale = np.sqrt(dim * N * T0 / (mass * KE))  # calculate a scaling factor
     velocity *= vscale  # rescale
     return velocity
+
+def InitPositionFromFile(fileName,N):
+    position = np.zeros((N, 3))
+    f = open(fileName,'r')
+    lines = f.readlines()
+    for i,line in enumerate(lines):
+        line = line.strip('\n').split(', ')
+        position[i] = [float(x) for x in line]
+    f.close()
+    return position
+
+def InitVelocityFromFile(fileName, N):
+    velocity = np.zeros((N, 3))
+    f = open(fileName,'r')
+    lines = f.readlines()
+    for i,line in enumerate(lines):
+        line = line.strip('\n').split(', ')
+        velocity[i] = [float(x) for x in line]
+    f.close()
+    return velocity

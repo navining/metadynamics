@@ -14,8 +14,10 @@ from output import *
 def simulate():
     # -----------------------Initialize--------------------------------
     ## system
-    R = init.InitPositionCubic(Ncube, L)
-    V = init.InitVelocity(N, T0, M)
+    #R = init.InitPositionFCC(Ncube, L)
+    #V = init.InitVelocity(N, T0, M)
+    R = init.InitPositionFromFile('Liquid_R',N)
+    V = init.InitVelocityFromFile('Liquid_V',N)
     E = np.zeros(steps)
 
     ## metadynamics
@@ -28,7 +30,9 @@ def simulate():
 
         # -----------------------Anderson Thermostat----------------------
         if anderson == True:
-            sigma = (Ta / M) ** 0.5
+            #Tc = T0 + (Ta - T0)/steps * t
+            Tc = Ta
+            sigma = (Tc / M) ** 0.5
             mean = 0
             for i in V:
                 if np.random.random() < eta * h:
@@ -88,9 +92,12 @@ def simulate():
 
         # ------------------------Output-------------------------------------
         if t % 50 == 0:
-            output(fileName, '%d, %.3f, %.3f, %.5f, %.5f\n' % (t+1, T, P, E[t], meta_Q6))
+            output(fileName, '%d, %.3f, %.3f, %.5f, %.5f\n' % (t, T, P, E[t], meta_Q6))
         if t % 100 == 0:
             write_xyz(fileName + '_' + str(t) + '.xyz', R)
+    # write_R(fileName, R)
+    # write_V(fileName, V)
+
 
     return S
 
@@ -100,4 +107,4 @@ if __name__ == '__main__':
     S = simulate()
 
     # Post processing
-    postprocessing()
+    #postprocessing()
