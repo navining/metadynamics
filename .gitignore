@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+T0
+T02
+T0
