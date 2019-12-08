@@ -26,7 +26,7 @@ eta = 0.3125
 
 # filename
 #fileName = 'T' + str(Ta)
-fileName = 'T02'
+fileName = 'test'
 
 # --------------MD-----------------
 

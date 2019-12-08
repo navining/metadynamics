@@ -2,6 +2,7 @@
 fcc
 hcp
 xyz
+T*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -127,6 +128,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-T0
-T02
-T0
+

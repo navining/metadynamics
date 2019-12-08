@@ -59,10 +59,10 @@ def simulate():
         drij = get_distance_table(N, rij)
 
         ## bias forces with metadynamics
-        if t%50 == 0:
-            meta_Q6 = calculate_Q6(nR,drij,rij)
-        # metaF, meta_Q6 = meta(t, n_gauss, S, nF, nR, drij, rij)
-        # nF = nF + metaF
+        # if t%50 == 0:
+        #     meta_Q6 = calculate_Q6(nR,drij,rij)
+        metaF, meta_Q6 = meta(t, n_gauss, S, nF, nR, drij, rij)
+        nF = nF + metaF
 
 
         ## calculate new velocities
@@ -88,9 +88,6 @@ def simulate():
 
         ## calculate pressure
         P = my_pressure(L ** 3, N, T, R, nF)
-
-        ## calculate Q6 in case no bias
-        meta_Q6 = calculate_Q6(R,drij, rij)
 
         # ------------------------Output-------------------------------------
         if t % 50 == 0:
