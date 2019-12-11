@@ -1,3 +1,4 @@
+
 # ------------System----------------
 # mass
 M = 48.0
@@ -15,10 +16,10 @@ L = 4
 rc = L/2
 
 # initial temperature
-T0 = 2
+T0 = 0.6
 
 # system temperature
-Ta = 0.2
+Ta = 0.6
 
 # Anderson
 anderson = True
@@ -26,7 +27,7 @@ eta = 0.3125
 
 # filename
 #fileName = 'T' + str(Ta)
-fileName = 'test'
+fileName = 'T065'
 
 # --------------MD-----------------
 
@@ -40,15 +41,16 @@ h = 0.032
 
 # Gaussian
 meta_w = 0.1 # height
-meta_sigma = 0.1 # width
-
+meta_sigma1 = 0.025 # width
+meta_sigma2 = 10
 # max number of Gaussian
 meta_max = 100
 
 # frequency
-meta_tau = 50
+meta_tau = 20
 
 # cutoff radius
 #meta_rc = (3**0.5)*L/(Ncube*1.9)
 #meta_rc = L/Ncube/(2**0.5)
 meta_rc = 1.2 * (2**(1/6.0))
+

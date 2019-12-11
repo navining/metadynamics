@@ -78,7 +78,7 @@ def my_potential_energy(rij, rc):
     return potential
 
 
-def my_force_on(i, pos, lbox, rc):
+def my_force_on(parameters):
     """
     Compute force on atom i
 
@@ -89,6 +89,7 @@ def my_force_on(i, pos, lbox, rc):
     Returns:
       np.array: force on atom i, a length-3 vector
     """
+    i, pos, lbox, rc = parameters
     Force = np.zeros(3)
     cur = pos[i]
     for atom in pos:

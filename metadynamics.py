@@ -64,16 +64,13 @@ def update(parameters):
     dsdr =  (s_new - s) / d
     return position,dsdr
 
-def calculate_ds_dr(R,s,drij,rij):
+def calculate_ds_dr(R,s,pool):
     # Input:
     # R (numpy.array, size N*3): atom positions
     # Output:
     # ds_dr (numpy.array, size N*3): the derivative of s with respect to atom positions
     d = 0.001
     ds_dr = np.zeros((N,3))
-
-    num_cores = multiprocessing.cpu_count()
-    pool = multiprocessing.Pool(num_cores)
 
     parameters = []
     for i in range(N):
@@ -87,7 +84,7 @@ def calculate_ds_dr(R,s,drij,rij):
     # ds_dr = 0
     return ds_dr
 
-def meta(step, n_gauss, S, force, R, drij, rij):
+def meta(step, n_gauss, S, force, R, drij, rij,pool):
     # -----------------Parameters----------------
     ## Gaussian
     w = meta_w
@@ -103,8 +100,8 @@ def meta(step, n_gauss, S, force, R, drij, rij):
     ## calculate CV
     s = calculate_Q6(R,drij, rij)
     ## calculate the derivative of s with respect to atom positions
-    ds_dr = calculate_ds_dr(R,s,drij,rij)
-
+    ds_dr = calculate_ds_dr(R,s,pool)
+    print(ds_dr)
     ## every tau step, save the value of s
     if step % tau == 0:
         n_gauss += 1
@@ -117,7 +114,7 @@ def meta(step, n_gauss, S, force, R, drij, rij):
     dV_ds = 0
     for s_tau in S:
         gauss = w * np.exp(-(s - s_tau)**2/2/sig**2)
-        dV_ds = dV_ds + gauss * (s - s_tau)**2/2/sig**2
+        dV_ds = dV_ds - gauss * (s - s_tau)/sig**2
 
     ## bias the force
     force = - dV_ds * ds_dr

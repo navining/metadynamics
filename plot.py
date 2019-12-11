@@ -1,42 +1,1 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from processing import *
-
-if __name__ == '__main__':
-    t = []
-    tau = []
-    temperature = []
-    E = []
-    Q6 = []
-    Q6_tau = []
-
-    fileName = 'tau100'
-
-    f = open(fileName,'r')
-    try:
-        lines=f.readlines()
-    finally:
-        f.close()
-
-    for i in range(1,len(lines)):
-        line = lines[i].strip('\n').split(', ')
-        t.append(float(line[0]))
-        temperature.append(float(line[1]))
-        E.append(float(line[3]))
-        Q6.append(float(line[4]))
-
-    f = open(fileName + '_Q6', 'r')
-    lines = f.readlines()
-    f.close()
-
-    for i in range(1, len(lines)):
-        line = lines[i].strip('\n').split(', ')
-        tau.append(int(line[0]))
-        Q6_tau.append(float(line[1]))
-
-    get_potential(Q6, tau)
-
-    # plt.plot(t,Q6)
-    # plt.show()
-    # plt.plot(t,E)
-    # plt.show()
+from input import *import numpy as npimport matplotlib.pyplot as pltdef get_potential_Q6(S, Tau):    # Input:    # S (List): A list of collecive variables at every tau steps    # tau (number): Frequency of gaussian deposition    # Output:    # V (List): The potential trace    X = np.linspace(0,1,100)    T = np.arange(Tau[0],Tau[-1],meta_tau)    plt.figure()    for t in T:        V = []        for x in X:            v = meta_w*sum([np.exp(-(x-S[tau])**2/(2*meta_sigma1**2)) for tau in Tau if tau < t])            V.append(-v)        plt.plot(X,V)    plt.title("Q6")def get_potential_P(S, Tau):    # Input:    # S (List): A list of collecive variables at every tau steps    # tau (number): Frequency of gaussian deposition    # Output:    # V (List): The potential trace    X = np.linspace(min(S),max(S),100)    T = np.arange(Tau[0],Tau[-1],meta_tau)    plt.figure()    for t in T:        V = []        for x in X:            v = meta_w*sum([np.exp(-(x-S[tau])**2/(2*meta_sigma2**2)) for tau in Tau if tau < t])            V.append(-v)        plt.plot(X,V)    plt.title("Potential")def get_contour(Q6,P,Tau):    def f(x,y):        t = Tau[-1]        return meta_w * sum([np.exp(-((x-Q6[tau])**2/(2*meta_sigma1**2)+(y-P[tau])**2/(2*meta_sigma2**2))) for tau in Tau if tau < t])    x = np.linspace(0,0.8,100)    y = np.linspace(min(P),max(P),100)    X,Y = np.meshgrid(x,y)    plt.figure()    plt.contourf(X,Y,f(X,Y),10,cmap=plt.cm.Blues)    C = plt.contour(X, Y, f(X, Y), 10,colors='black',linewidths=.5)    plt.title("Contour")    plt.xlabel("Q6")    plt.ylabel("Potential")    #plt.clabel(C, inline = True, fontsize=5)if __name__ == '__main__':    t = []    tau = []    temperature = []    E = []    Q6 = []    Q6_tau = []    P = []    P_tau = []    cv = 2    fileName1 = 'thermo.txt'    if cv == 1:        fileName2 = 'Q6_Gauss_Center.txt'    else:        fileName2 = 'Q6_PE_Gauss_Centers.txt'    f = open(fileName1,'r')    lines=f.readlines()    f.close()    for i in range(2,len(lines)):        line = lines[i].strip('\n').split('  ')        t.append(float(line[0]))        temperature.append(float(line[1]))        E.append(float(line[3]))        Q6.append(float(line[4]))        if cv == 2:            P.append(float(line[5]))    f = open(fileName2, 'r')    lines = f.readlines()    f.close()    for i in range(2, len(lines)):        line = lines[i].strip('\n').split('  ')        tau.append(int(line[0]))        Q6_tau.append(float(line[1]))        if cv==2:            P_tau.append(float(line[2]))    get_potential_Q6(Q6, tau)    if cv == 2:        get_potential_P(P,tau)        get_contour(Q6,P,tau)    plt.figure()    plt.plot(t,Q6)    if cv == 2:        plt.figure()        plt.plot(t,P)    # plt.show()    plt.show()
